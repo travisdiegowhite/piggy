@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --bg: #fafaf9;
+  --panel: #ffffff;
+  --line: #e7e5e4;
+  --ink: #1c1917;
+  --muted: #78716c;
+  --accent: #047857;
+  --pos: #15803d;
+  --neg: #b91c1c;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-feature-settings: "tnum" 1;
 }
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-[var(--line)] bg-[var(--panel)] p-5;
+  }
+  .card-title {
+    @apply text-xs font-medium uppercase tracking-wider text-[var(--muted)];
+  }
+  .input {
+    @apply rounded-md border border-[var(--line)] bg-white px-3 py-2 text-sm outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-emerald-100;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-[var(--line)] bg-white px-3 py-2 text-sm font-medium hover:bg-stone-50 disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-[var(--accent)] px-3 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-50;
+  }
+  .pos { color: var(--pos); }
+  .neg { color: var(--neg); }
+  .num { font-variant-numeric: tabular-nums; }
+}
+
+/* Markdown in chat answers */
+.prose-chat p { margin: 0.5em 0; }
+.prose-chat ul, .prose-chat ol { margin: 0.5em 0; padding-left: 1.25em; }
+.prose-chat ul { list-style: disc; }
+.prose-chat ol { list-style: decimal; }
+.prose-chat strong { font-weight: 600; }
+.prose-chat h1, .prose-chat h2, .prose-chat h3 { font-weight: 600; margin: 0.75em 0 0.25em; }
+.prose-chat table { border-collapse: collapse; margin: 0.75em 0; font-variant-numeric: tabular-nums; }
+.prose-chat th, .prose-chat td { border-bottom: 1px solid var(--line); padding: 0.3em 0.75em 0.3em 0; text-align: left; }
+.prose-chat th { font-weight: 500; color: var(--muted); font-size: 0.85em; }
+.prose-chat code { background: #f5f5f4; padding: 0.1em 0.3em; border-radius: 3px; font-size: 0.9em; }
